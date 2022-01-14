@@ -797,10 +797,33 @@ void GLCD_init(void) {
     delay(200);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
     _A0_0;                                                                      // A0=0
     _RSTB_0;                                                                    // Reset GLCD module
-    __delay_us(4);
+    __delay_us(10);
     _RSTB_1;                                                                    // Reset line high
-    __delay_us(4);
+    __delay_us(10);
 
+//Write_Instruction(0xa0)
+//Write_Instruction(0xc8)
+//Write_Instruction(0xa2)
+//Write_Instruction((0x28|0x07))
+//Write_Instruction((0x20|0x06))
+//Write_Instruction(0x81);
+//	Write_Instruction(0x16);
+//Write_Instruction(0x40)
+//Write_Instruction(0xaf)
+/*/    
+    st7565_command(0xA0);
+    st7565_command(0xC8);
+    st7565_command(0xA2);
+    st7565_command(0x28|0x07);
+    st7565_command(0x20|0x06);
+    st7565_command(0x81);
+    st7565_command(0x16);
+    st7565_command(0x40);
+    goto_row(0x00);                                                             // Set page address
+    goto_col(0x00);                                                             // Set column addr LSB
+    st7565_command(0xAF);
+  /*/
+      
     st7565_command(0xA2);                                                       // set bias at duty cycle 1.65 (0xA2=1.9 0xA3=1.6)
     st7565_command(0xC8);                                                       // comm direction normal =0xC0 comm reverse= 0xC8
     st7565_command(0xA0);                                                       // seg dir (0xA0 or 0xA1)
@@ -820,7 +843,12 @@ void GLCD_init(void) {
     goto_row(0x00);                                                             // Set page address
     goto_col(0x00);                                                             // Set column addr LSB
     st7565_command(0xAF);                                                       // ON command
-
+//
+    
+    
+    
+    
+    
 }
 
 
