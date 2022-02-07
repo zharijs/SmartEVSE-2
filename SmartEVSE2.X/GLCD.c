@@ -794,61 +794,60 @@ void GLCDMenu(unsigned char Buttons) {
 
 
 void GLCD_init(void) {
+    
+    //E2 // 60ms RST 60ms // 280ms
+    // A0 C8 // A2 2F // 26 // 81 // 15 40 AF
+    
+    
+    _RSTB_0;                                                                    // Reset GLCD module
+    delay(200);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
+    _RSTB_1;                                                                    // Reset line high
     delay(200);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
     _A0_0;                                                                      // A0=0
+    st7565_command(0xE2);                                                       // set bias at duty cycle 1.65 (0xA2=1.9 0xA3=1.6)
+    delay(60);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
     _RSTB_0;                                                                    // Reset GLCD module
-    __delay_us(10);
+    delay(60);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
     _RSTB_1;                                                                    // Reset line high
-    __delay_us(10);
+    delay(280);                                                                 // transients on the line could have garbled the LCD, wait 200ms then re-init. (blocking)
+//    __delay_us(4);
+//    _RSTB_1;                                                                    // Reset line high
+//    __delay_us(4);
 
-//Write_Instruction(0xa0)
-//Write_Instruction(0xc8)
-//Write_Instruction(0xa2)
-//Write_Instruction((0x28|0x07))
-//Write_Instruction((0x20|0x06))
-//Write_Instruction(0x81);
-//	Write_Instruction(0x16);
-//Write_Instruction(0x40)
-//Write_Instruction(0xaf)
-/*/    
     st7565_command(0xA0);
     st7565_command(0xC8);
+    
     st7565_command(0xA2);
-    st7565_command(0x28|0x07);
-    st7565_command(0x20|0x06);
+    st7565_command(0x2F);
+
+    st7565_command(0x26);
+    
     st7565_command(0x81);
-    st7565_command(0x16);
+
+    st7565_command(0x15);
     st7565_command(0x40);
-    goto_row(0x00);                                                             // Set page address
-    goto_col(0x00);                                                             // Set column addr LSB
-    st7565_command(0xAF);
-  /*/
-      
-    st7565_command(0xA2);                                                       // set bias at duty cycle 1.65 (0xA2=1.9 0xA3=1.6)
-    st7565_command(0xC8);                                                       // comm direction normal =0xC0 comm reverse= 0xC8
-    st7565_command(0xA0);                                                       // seg dir (0xA0 or 0xA1)
-    st7565_command(0xA6);                                                       // set inverse (0xA7=inverse 0xA6=normal)
 
-    st7565_command(0x20 | 0x04);                                                // set Regulation Ratio (0-7)
+    
+    //st7565_command(0xA2);                                                       // set bias at duty cycle 1.65 (0xA2=1.9 0xA3=1.6)
+    //st7565_command(0xC8);                                                       // comm direction normal =0xC0 comm reverse= 0xC8
+    //st7565_command(0xA0);                                                       // seg dir (0xA0 or 0xA1)
+    //st7565_command(0xA6);                                                       // set inverse (0xA7=inverse 0xA6=normal)
 
-    st7565_command(0xF8);                                                       // send Booster command
-    st7565_command(0x01);                                                       // set Booster value 00=4x 01=5x
+    //st7565_command(0x20 | 0x04);                                                // set Regulation Ratio (0-7)
 
-    st7565_command(0x81);                                                       // send Electronic Volume command 0x81
-    st7565_command(0x24);                                                       // set Electronic volume (0x00-0x3f)
+    //st7565_command(0xF8);                                                       // send Booster command
+    //st7565_command(0x01);                                                       // set Booster value 00=4x 01=5x
 
-    st7565_command(0x28 | 0x07);                                                // ALL Power Control ON
-    st7565_command(0x40);                                                       // Set display start line
+    //st7565_command(0x81);                                                       // send Electronic Volume command 0x81
+    //st7565_command(0x24);                                                       // set Electronic volume (0x00-0x3f)
+
+    //st7565_command(0x28 | 0x07);                                                // ALL Power Control ON
+    //st7565_command(0x40);                                                       // Set display start line
 
     goto_row(0x00);                                                             // Set page address
     goto_col(0x00);                                                             // Set column addr LSB
     st7565_command(0xAF);                                                       // ON command
-//
-    
-    
-    
-    
-    
+
 }
 
 
