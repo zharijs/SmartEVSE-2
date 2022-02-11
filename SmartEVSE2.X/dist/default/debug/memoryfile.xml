@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="dist/default/debug\SmartEVSE2.X.debug.hex">
+    <memory name="program">
+      <units>bytes</units>
+      <length>64764</length>
+      <used>50645</used>
+      <free>14119</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>3896</length>
+      <used>1844</used>
+      <free>2052</free>
+    </memory>
+  </executable>
+</project>
